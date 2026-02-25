@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoloBarista — Manon Lippler Extension</title>
+    <link rel="stylesheet" href="./css/base.css">
+</head>
+<body class="page">
+
+    <!-- ================= HEADER ================= -->
+    <header class="header">
+        <div class="header__brand">
+            <div class="header__logo">ML</div>
+            <div class="header__titles">
+                <h1 class="header__title">
+                    HoloBarista 
+                    <span class="hero__highlight">Extended</span>
+                </h1>
+                <p class="header__subtitle">
+                    Individual Extension — Manon LIPPLER
+                </p>
+            </div>
+        </div>
+
+        <nav class="nav nav--floating">
+            <a href="index.html" class="nav__link">Home</a>
+            <a href="wahel.html" class="nav__link">Wahel GADER</a>
+            <a href="jean.html" class="nav__link">Jean PAUGNAT</a>
+        </nav>
+    </header>
+
+
+    <main class="main">
+
+        <!-- ================= HERO ================= -->
+        <section class="hero">
+            <div class="hero__container">
+
+                <div class="hero__content">
+                    <span class="hero__badge">Tycoon & Management</span>
+
+                    <h2 class="hero__title">
+                        From Sandbox Experience to 
+                        <span class="hero__highlight">Management Game</span>
+                    </h2>
+
+                    <p class="hero__description">
+                        My work focused on transforming the shared interactive foundation 
+                        into a true management game experience. I reintegrated surface detection 
+                        features to improve spatial stability and implemented a "Rush" gameplay 
+                        loop including thermal quality constraints.
+                    </p>
+
+                    <div class="hero__actions">
+                        <a href="#logic" class="button button--primary">
+                            Technical Details
+                        </a>
+                        <a href="#demo" class="button button--secondary">
+                            Watch the Demo
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero__visual">
+                    <img class="hero__image"
+                         src="./public/img/coffee-background.png"
+                         alt="HoloBarista Tycoon Extension" />
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= DIVIDER ================= -->
+        <div class="divider divider--checkerboard" aria-hidden="true"></div>
+
+
+        <!-- ================= LOGIC SECTION ================= -->
+        <section id="logic" class="stack">
+
+            <div class="stack__container">
+
+                <header class="features__header">
+                    <h2 class="stack__title">
+                        My Individual Contributions
+                    </h2>
+                    <p>Focus on technical architecture and game design mechanics.</p>
+                </header>
+
+                <div class="stack__grid">
+
+                    <!-- Plane Detection -->
+                    <article class="stack__card">
+                        <h3 class="stack__card-title">
+                            1. Native Plane Detection
+                        </h3>
+
+                        <p class="stack__card-text">
+                            Instead of relying exclusively on Hit-Test (which requires continuous targeting),
+                            I implemented native plane detection. The headset memorizes the room geometry,
+                            allowing customers and objects to remain firmly anchored without spatial drift.
+                        </p>
+
+                        <pre class="feature-card__code"><code>// WebXR initialization with plane detection
+this.el.sceneEl.setAttribute('webxr', {
+  requiredFeatures: ['planes', 'anchors', 'local-floor'],
+  optionalFeatures: ['hit-test']
+});
+
+this.el.addEventListener('planesdetected', (ev) => {
+  const planes = ev.detail.planes;
+  // Geometry memorization
+});</code></pre>
+                    </article>
+
+
+                    <!-- Temperature Gauge -->
+                    <article class="stack__card">
+                        <h3 class="stack__card-title">
+                            2. Temperature Gauge System
+                        </h3>
+
+                        <p class="stack__card-text">
+                            Each coffee has a temperature variable that decreases over time.
+                            A world-space UI gauge visually indicates its state: if the temperature
+                            drops below 30%, the customer refuses the order.
+                        </p>
+
+                        <pre class="feature-card__code"><code>// Heat loss management
+tick: function(time, delta) {
+  this.temperature -= this.coolingRate * (delta / 1000);
+  
+  // Update world-space gauge
+  this.gaugeEl.setAttribute('width', this.temperature / 100);
+
+  if (this.temperature < 30) this.isCold = true;
+}</code></pre>
+                    </article>
+
+
+                    <!-- Queue System -->
+                    <article class="stack__card">
+                        <h3 class="stack__card-title">
+                            3. Queue Management System
+                        </h3>
+
+                        <p class="stack__card-text">
+                            Development of a rush mechanic where NPC customers dynamically line up
+                            behind one another, creating immediate visual pressure and reinforcing
+                            the management gameplay loop.
+                        </p>
+
+                        <pre class="feature-card__code"><code>// Queue logic
+if (this.queue.length > 0) {
+  const targetPos = this.getQueuePosition(index);
+  customer.animateTo(targetPos);
+}</code></pre>
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= DEMO ================= -->
+        <section id="demo" class="demo">
+
+            <div class="divider divider--checkerboard" aria-hidden="true"></div>
+
+            <div class="demo__container">
+
+                <h2 class="demo__title">
+                    Individual Demonstration
+                </h2>
+
+                <div class="demo__video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/VNMYNhQYDcg"
+                        title="Manon Extension Demonstration"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <p class="demo__caption">
+                    Visualization of the temperature gauge system and the Tycoon-style service mechanics.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+
+        <div class="footer__container">
+
+            <div class="footer__brand">
+                <div class="footer__logo">ML</div>
+                <p>
+                    Manon Lippler — Tycoon Extension, SAE 4.DWeb
+                </p>
+            </div>
+
+            <div class="footer__nav">
+                <h4 class="footer__title">Navigation</h4>
+                <a href="index.html" class="footer__link">Project Home</a>
+                <a href="#logic" class="footer__link">Technical Details</a>
+            </div>
+
+        </div>
+
+        <div class="footer__bottom">
+            <p>© 2026 — Manon Lippler</p>
+        </div>
+
+    </footer>
+
+</body>
+</html>

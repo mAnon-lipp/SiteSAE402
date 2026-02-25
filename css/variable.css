@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Bebas+Neue&display=swap');
+
+
+
+:root {
+    /* Colors */
+    --clr-brown-deer: #532d1c;
+    --clr-copper: #b76635;
+    --clr-nutty-brown: #583924;
+    --clr-withered: #c29666;
+    --clr-golden-chestnut: #6b261f;
+    --clr-bg-soft: #faf6f1;
+    --clr-white: #ffffff;
+    --clr-black: #000000;
+    --clr-gray-light: #dddddd;
+    --clr-gray-border: rgba(0, 0, 0, 0.05);
+
+    /* Fonts */
+    --ff-sans: "Inter", sans-serif;
+    --ff-display: "Bebas Neue", cursive;
+
+    /* Spacing */
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+}

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoloBarista</title>
+    <link rel="stylesheet" href="./css/base.css" />
+  </head>
+  <body class="page">
+    <header class="header">
+      <div class="header__brand">
+        <div class="header__logo">HB</div>
+        <div class="header__titles">
+          <h1 class="header__title">HoloBarista</h1>
+          <p class="header__subtitle">
+            SAE 4.DWeb-DI.02 — Interactive Device Design
+          </p>
+          <p class="header__team">Wahel GADER · Jean PAUGNAT · Manon LIPPLER</p>
+        </div>
+      </div>
+
+      <nav class="nav nav--floating">
+        <a class="nav__link" href="wahel.html">Wahel GADER</a>
+        <a class="nav__link" href="jean.html">Jean PAUGNAT</a>
+        <a class="nav__link" href="manon.html">Manon LIPPLER</a>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section class="hero" id="overview">
+        <div class="hero__container">
+          <div class="hero__content">
+            <span class="hero__badge">Quest 3 Passthrough</span>
+
+            <h2 class="hero__title">
+              Spatial Computing
+              <span class="hero__highlight">in Everyday Life</span>
+            </h2>
+
+            <p class="hero__description">
+              HoloBarista transforms your physical environment into an
+              interactive coffee shop. The user becomes the central element of
+              the experience, using the real world as the primary interface.
+            </p>
+
+            <div class="hero__actions">
+              <a
+                href="https://github.com/jeanjeanpaugnat/sae-402"
+                class="button button--secondary"
+              >
+                Source Code
+              </a>
+            </div>
+          </div>
+
+          <div class="hero__visual">
+            <img
+              class="hero__image"
+              src="./assets/image.png"
+              alt="HoloBarista Demo"
+            />
+          </div>
+        </div>
+      </section>
+
+      <div class="divider divider--checkerboard"></div>
+
+      <section class="stack">
+        <div class="stack__container">
+          <h2 class="stack__title">Technical Stack</h2>
+
+          <div class="stack__grid">
+            <div class="stack__card">
+              <h4 class="stack__card-title">Framework</h4>
+              <p class="stack__card-text">
+                A-Frame and Entity-Component-System (ECS) architecture for
+                modular entity management.
+              </p>
+            </div>
+
+            <div class="stack__card">
+              <h4 class="stack__card-title">WebXR APIs</h4>
+              <p class="stack__card-text">
+                Use of Hit-Test and Anchors modules for object detection and
+                persistent anchoring.
+              </p>
+            </div>
+
+            <div class="stack__card">
+              <h4 class="stack__card-title">Physics</h4>
+              <p class="stack__card-text">
+                Cannon.js engine for collision handling and realistic object
+                throwing simulation.
+              </p>
+            </div>
+
+            <div class="stack__card">
+              <h4 class="stack__card-title">Performance</h4>
+              <p class="stack__card-text">
+                Optimized low-poly models to maintain a stable 72Hz refresh
+                rate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <header class="features__header">
+          <h2 class="features__title">🛠️ Core Features</h2>
+          <p>
+            Code excerpts and description of the main implemented
+            functionalities.
+          </p>
+        </header>
+        <div class="features-list">
+          <article class="feature-card">
+            <div class="feature-card__text">
+              <h3>1. "Spring Cleaning" Phase</h3>
+              <p>
+            Before opening, the user must clean their space. This mechanic gamifies technical calibration by using hand or broom tracking to erase procedural stains.
+              </p>
+            </div>
+
+            <pre class="feature-card__code"><code>// Excerpt from src/main.js - Cleaning System
+            function checkCleaning() {
+            if (!grabbed || !currentGrabbedEl) return;
+            if (!currentGrabbedEl.getAttribute('gltf-model').includes('Broom')) return;
+            stains.forEach((stainObj, index) => {
+                const dist = new THREE.Vector2(broomPos.x, broomPos.z).distanceTo(new THREE.Vector2(stainPos.x, stainPos.z));
+                if (dist < 0.4 && Math.abs(broomPos.y - stainPos.y) < 0.5) {
+                stainObj.health -= 5; // Progressive stain reduction
+                stainObj.el.setAttribute('opacity', stainObj.health / 100);
+                }
+            });
+            }
+
+    </code></pre>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__text">
+              <h3>2. Machine Interaction and Object Spawning</h3>
+              <p>
+            Gameplay relies on direct interaction: point at the machine and trigger preparation. The system manages audio feedback and cup instantiation in 3D space.
+              </p>
+            </div>
+
+            <pre class="feature-card__code"><code>// Excerpt from src/main.js - Business Logic
+            function handleCoffeeMachineClick(machineEntity) {
+            if (coffeeMachineLock) return;
+            coffeeMachineLock = true;
+            coffeeAudio.play(); // Spatialised audio feedback
+            setTimeout(() => {
+                const cup = document.createElement('a-entity');
+                cup.setAttribute('gltf-model', 'url(models/Coffeecup.glb)');
+                cup.setAttribute('dynamic-body', 'mass:0.3'); // Physics activation
+                sceneEl.appendChild(cup);
+                coffeeMachineLock = false;
+            }, 1500);
+            }
+
+    </code></pre>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__text">
+              <h3>3. Physical Manipulation and Throwing (Grabbing)</h3>
+
+              <p>
+            The grab system enables natural object interaction. To ensure smooth movement, physics is temporarily modified (Kinematic mode) before applying impulse during throwing.
+              </p>
+            </div>
+
+            <pre class="feature-card__code"><code>// Excerpt from src/components/hand-grab.js - Grab Management
+            this.el.addEventListener('grab-start', () => {
+            this.isGrabbed = true;
+            if (this.el.body) {
+                this.el.body.mass = 0; // Gravity cancellation for grabbing
+                this.el.body.type = 2; // Switch to KINEMATIC mode (follows hand)
+                this.el.body.collisionResponse = false;
+            }
+            });
+
+    </code></pre>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-card__text">
+              <h3>4. Spatial Analysis and Hit-Test</h3>
+
+              <p>
+            To anchor virtual furniture (counter, machines) on real user furniture, the project uses WebXR API to detect intersections between controller rays and the real world.
+              </p>
+            </div>
+
+            <pre class="feature-card__code"><code>// Excerpt from src/main.js - Hit-Test API
+            if (hitTestSource) {
+                const hits = frame.getHitTestResults(hitTestSource);
+                if (hits.length > 0) {
+                const pose = hits[0].getPose(xrRefSpace);
+                cursorEl.object3D.position.set(pose.transform.position.x,pose.transform.position.y,pose.transform.position.z);
+                cursorEl.object3D.visible = true;
+                }
+            }
+
+</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="demo" id="demos">
+        <div class="divider divider--checkerboard"></div>
+        <div class="demo__container">
+          <h2 class="demo__title">Passthrough Demonstration</h2>
+          <div class="demo__video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/VNMYNhQYDcg"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <p class="demo__caption">
+            Final rendering preview: interaction with the machine and object
+            physics in a real-world environment.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <div class="footer__brand">
+          <div class="footer__logo">HB</div>
+          <p>HoloBarista — Spatial computing for immersive interaction.</p>
+        </div>
+        <div class="footer__nav">
+          <h4 class="footer__title">Project</h4>
+          <a class="footer__link" href="#overview">Concept</a>
+          <a class="footer__link" href="#features">Features</a>
+          <a class="footer__link" href="ARCHITECTURE.md">Architecture</a>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2026 SAE 4.DWeb-DI.02 — IUT Limoges</p>
+      </div>
+    </footer>
+  </body>
+</html>
