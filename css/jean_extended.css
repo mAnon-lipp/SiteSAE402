@@ -1,0 +1,160 @@
+/* css/jean_extended.css */
+
+/* --- Layout Général Portfolio --- */
+.text-center { text-align: center; }
+
+.stack--portfolio {
+    padding: 100px 0;
+}
+
+.portfolio-item {
+    display: flex;
+    align-items: center;
+    gap: 60px; /* Grand espacement entre texte et média */
+    margin-bottom: 120px; /* Grand espacement entre chaque section */
+}
+
+/* Aligner l'image à gauche pour les sections impaires */
+.portfolio-item.reversed {
+    flex-direction: row-reverse;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+/* --- Typographie et Texte --- */
+.stack__header {
+    margin-bottom: 80px;
+}
+
+.title--decorative {
+    font-size: 3.5rem;
+    color: var(--color-hero-highlight); /* Ton jaune highlight */
+    text-shadow: 2px 2px 0 var(--color-brand-primary-dark); /* Ton marron foncé */
+}
+
+.item-title {
+    font-family: var(--font-primary);
+    font-size: 2.2rem;
+    color: white;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.item-description {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+/* --- Média Unique --- */
+.single-media {
+    width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 3px solid var(--color-brand-primary);
+}
+
+/* =========================================
+   CARROUSEL CSS PUR (SANS JS)
+   Basé sur scroll-snap
+========================================= */
+
+.carousel-container {
+    width: 100%;
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 3px solid var(--color-brand-primary);
+}
+
+.carousel-viewport {
+    display: flex;
+    overflow-x: auto; /* Active le défilement horizontal */
+    scroll-snap-type: x mandatory; /* Force le snap horizontal */
+    scroll-behavior: smooth; /* Défilement fluide */
+    -webkit-overflow-scrolling: touch; /* Douceur sur mobile iOS */
+}
+
+/* Cache la barre de défilement (optionnel) */
+.carousel-viewport::-webkit-scrollbar {
+    display: none;
+}
+.carousel-viewport {
+    scrollbar-width: none;
+}
+
+.carousel-slide {
+    flex: 0 0 100%; /* Chaque slide fait 100% de la largeur */
+    width: 100%;
+    scroll-snap-align: start; /* Le snap se fait au début du slide */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-slide img,
+.carousel-slide video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* Navigation par points (Jump Links) */
+.carousel-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 0;
+    background: var(--color-brand-primary-dark);
+}
+
+.carousel-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.carousel-nav a:hover {
+    background: var(--color-hero-highlight);
+    color: var(--color-brand-primary-dark);
+}
+
+/* --- Responsive Mobile --- */
+@media (max-width: 992px) {
+    .portfolio-item,
+    .portfolio-item.reversed {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
