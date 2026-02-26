@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoloBarista — Jean Paugnat Extension</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/jean_extended.css"> </head>
+<body class="page">
+
+    <header class="header">
+        <div class="header__brand">
+            <div class="header__logo">JP</div>
+            <div class="header__titles">
+                <h1 class="header__title">HoloBarista <span class="hero__highlight">Extended</span></h1>
+                <p class="header__subtitle">Individual Extension — Jean PAUGNAT</p>
+            </div>
+        </div>
+        <nav class="nav nav--floating">
+            <a href="index.html" class="nav__link">Home</a>
+            <a href="wahel.html" class="nav__link">Wahel GADER</a>
+            <a href="manon.html" class="nav__link">Manon LIPPLER</a>
+        </nav>
+    </header>
+
+    <main class="main">
+
+        <section class="hero hero--individual">
+            <div class="hero__container">
+                <div class="hero__content hero__content--centered">
+                    <span class="hero__badge">Arcade & Competitive</span>
+                    <h2 class="hero__title">Welcome to the <span class="hero__highlight">Dark Kitchen</span></h2>
+                    <p class="hero__description">
+                        I transformed the sandbox sandbox into a fast-paced game. Experience escalating difficulty, new items, global competition with Supabase, and immersive spatial audio with a custom playlist.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#logic" class="button button--primary">Technical Details</a>
+                        <a href="#demo" class="button button--secondary">Watch Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider divider--checkerboard" aria-hidden="true"></div>
+
+        <section id="logic" class="stack stack--portfolio">
+            <div class="stack__container container">
+                <header class="stack__header text-center">
+                    <h2 class="stack__title title--decorative">Key Technical Contributions</h2>
+                    <p class="stack__subtitle">UX Gamification, API Integration & Spatial Interaction</p>
+                </header>
+
+                <article class="portfolio-item row-layout">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">1. Interactive Tutorial</h3>
+                        <p class="item-description">
+                            The `TutorialSystem` manages player onboarding through a spatial checklist. It sequentially updates UI panels, ensuring players understand core mechanics before the game rush.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/modules/story.js
+completeTask(taskId) {
+    if (this.isCompleted) return;
+    const taskIndex = this.tasks.findIndex(t => t.id === taskId);
+    if (taskIndex !== -1 && !this.tasks[taskIndex].completed) {
+        this.tasks[taskIndex].completed = true;
+        this.updateUI(); // Updates spatial UI
+    }
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <div class="carousel-container">
+                            <div class="carousel-viewport">
+                                <div id="tutorial-1" class="carousel-slide">
+                                    <img src="./assets/tutorial_step1.jpg" alt="Tutorial Step 1">
+                                    <span class="carousel-caption">Step 1: Welcome Panel</span>
+                                </div>
+                                <div id="tutorial-2" class="carousel-slide">
+                                    <img src="./assets/tutorial_step2.jpg" alt="Tutorial Step 2">
+                                    <span class="carousel-caption">Step 2: Task Update</span>
+                                </div>
+                            </div>
+                            <div class="carousel-nav">
+                                <a href="#tutorial-1">1</a>
+                                <a href="#tutorial-2">2</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item row-layout reversed">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">2. Dynamic Difficulty</h3>
+                        <p class="item-description">
+                            The game scales through modes. `DarkKitchenSystem` adjust items and scaling. High difficulty introduces new items like donuts and reduces time limits.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/modules/story.js
+generateOrder() {
+    let possibleItems = ['coffee'];
+    if (this.difficulty === 'hard') {
+        possibleItems.push('donut');
+        this.timeLimit -= 10;
+    }
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <div class="carousel-container">
+                            <div class="carousel-viewport">
+                                <div id="diff-1" class="carousel-slide active">
+                                    <img src="./assets/donut_unlock.jpg" alt="Donut item">
+                                    <span class="carousel-caption">Donut Item Unlocked</span>
+                                </div>
+                                <div id="diff-2" class="carousel-slide">
+                                    <img src="./assets/hard_mode.jpg" alt="Hard mode UI">
+                                    <span class="carousel-caption">Hard Mode Activated</span>
+                                </div>
+                            </div>
+                            <div class="carousel-nav">
+                                <a href="#diff-1">1</a>
+                                <a href="#diff-2">2</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item row-layout">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">3. Leaderboard</h3>
+                        <p class="item-description">
+                            Integrated Supabase API to fetch and render global high scores in the VR environment, driving competition.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/modules/score.js
+async getLeaderboard(limit = 10) {
+    const { data } = await supabase
+        .from('leaderboard')
+        .select('*')
+        .order('score', { ascending: false })
+        .limit(limit);
+    return data;
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <img src="./assets/leaderboard_final.jpg" alt="Leaderboard in VR" class="single-media">
+                    </div>
+                </article>
+
+                <article class="portfolio-item row-layout reversed">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">4. Audio Player</h3>
+                        <p class="item-description">
+                            Created `SpeakerPlaylist` for immersive audio. Players use the 'B' button to toggle a music UI and change custom tracks.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/modules/speaker.js
+setupControllers() {
+    this.rightController.addEventListener('bbuttondown', () => {
+        this.toggleMenu(); // Toggles spatial UI
+    });
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <div class="carousel-container">
+                            <div class="carousel-viewport">
+                                <div id="audio-1" class="carousel-slide active">
+                                    <img src="./assets/playlist_ui.jpg" alt="Playlist spatial UI">
+                                    <span class="carousel-caption">Playlist Spatial UI</span>
+                                </div>
+                                <div id="audio-2" class="carousel-slide">
+                                    <video src="./assets/music_demo.mp4" controls></video>
+                                    <span class="carousel-caption">Video Demo: Changing Track</span>
+                                </div>
+                            </div>
+                            <div class="carousel-nav">
+                                <a href="#audio-1">1</a>
+                                <a href="#audio-2">2</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="demo" class="demo">
+            <div class="divider divider--checkerboard" aria-hidden="true"></div>
+            <div class="demo__container container text-center">
+                <h2 class="demo__title">Individual Demonstration Video</h2>
+                <div class="demo__video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/VOTRE_ID_VIDEO" title="Jean Extension Demonstration" allowfullscreen></iframe>
+                </div>
+                <p class="demo__caption">Full walkthroug of the Dark Kitchen game mode.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__brand">
+                <div class="footer__logo">JP</div>
+                <p>Jean Paugnat — SAE 4.DWeb Portfolio</p>
+            </div>
+            <div class="footer__nav">
+                <a href="index.html" class="footer__link">Project Home</a>
+                <a href="#logic" class="footer__link">Technical Details</a>
+            </div>
+        </div>
+        <div class="footer__bottom text-center">
+            <p>© 2026 — Jean Paugnat</p>
+        </div>
+    </footer>
+
+</body>
+</html>
