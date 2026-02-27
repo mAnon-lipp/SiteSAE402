@@ -1,0 +1,94 @@
+/* css/wahel_extended.css */
+
+/* Accent color specific to Wahel (Teal/Light Blue for the shop/water theme) */
+:root {
+    --color-wahel-highlight: #48b8a3;
+    --color-wahel-dark: #1f3d38;
+}
+
+/* --- General Portfolio Layout --- */
+.text-center {
+    text-align: center;
+}
+
+.stack--portfolio {
+    padding: 100px 0;
+}
+
+.portfolio-item {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 120px;
+}
+
+.portfolio-item.reversed {
+    flex-direction: row-reverse;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+/* --- Typography and Text --- */
+.stack__header {
+    margin-bottom: 80px;
+}
+
+.title--decorative {
+    font-size: 3.5rem;
+    color: var(--color-wahel-highlight);
+    text-shadow: 2px 2px 0 var(--clr-nutty-brown);
+}
+
+.hero__highlight {
+    color: var(--color-wahel-highlight) !important;
+}
+
+.video__frame {
+    margin-top: 5rem;
+    width: 100%;
+    height: 315px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--clr-nutty-brown);
+}
+
+.item-title {
+    font-family: var(--ff-display);
+    font-size: 2.2rem;
+    color: var(--clr-copper);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.item-description {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 30px;
+    line-height: 1.7;
+}
+
+/* --- Single Media --- */
+.single-media {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--clr-nutty-brown);
+}
+
+/* --- Responsive Mobile --- */
+@media (max-width: 992px) {
+
+    .portfolio-item,
+    .portfolio-item.reversed {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}

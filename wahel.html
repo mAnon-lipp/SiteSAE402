@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HoloBarista — Wahel Gader Extension</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/wahel_extended.css">
+    <link rel="stylesheet" href="./css/jean_extended.css">
+</head>
+
+<body class="page">
+
+    <header class="header">
+        <div class="header__brand">
+            <div class="header__logo">WG</div>
+            <div class="header__titles">
+                <h1 class="header__title">HoloBarista <span class="hero__highlight">Extended</span></h1>
+                <p class="header__subtitle">Individual Extension — Wahel GADER</p>
+            </div>
+        </div>
+        <nav class="nav nav--floating">
+            <a href="index.html" class="nav__link">Home</a>
+            <a href="jean.html" class="nav__link">Jean PAUGNAT</a>
+            <a href="manon.html" class="nav__link">Manon LIPPLER</a>
+        </nav>
+    </header>
+
+    <main class="main">
+
+        <section class="hero hero--individual">
+            <div class="hero__container">
+                <div class="hero__content hero__content--centered">
+                    <span class="hero__badge">Economy & Customer Management</span>
+                    <h2 class="hero__title">Immersive <span class="hero__highlight">Retail Experience</span></h2>
+                    <p class="hero__description">
+                        I transformed the base game into a true retail simulation. My work focused on managing dynamic
+                        customer queues, implementing an in-game economy with a decoration shop, and enhancing immersion
+                        through spatial audio.
+                    </p>
+                    <div class="hero__actions">
+                        <a href="#logic" class="button button--primary">Technical Details</a>
+                        <a href="#demo" class="button button--secondary">Watch Demo</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider divider--checkerboard" aria-hidden="true"></div>
+
+        <section id="logic" class="stack stack--portfolio">
+            <div class="stack__container container">
+                <header class="stack__header text-center">
+                    <h2 class="stack__title title--decorative">My Technical Contributions</h2>
+                    <p class="stack__subtitle">Task Management, Customer Queues, Economy & Audio</p>
+                </header>
+
+                <article class="portfolio-item row-layout">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">1. Dynamic To-Do List & Tutorial</h3>
+                        <p class="item-description">
+                            Creation of an interactive checklist to guide the player. The system dynamically reorders
+                            tasks and validates steps (checkup) to ensure a smooth learning process of the mechanics
+                            before the real service begins.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/main.js
+function updateTutorialUI() {
+    let msg = "TO DO:\n\n";
+
+    if (tutorialStep === 1) msg += "> Buy Broom & Dustpan (Menu Y)\n";
+    else if (tutorialStep > 1) msg += "[x] Floor cleaned\n";
+    
+    // ...
+    
+    if (tutorialStep === 5) msg += "> Serve coffee to customer\n";
+    else if (tutorialStep > 5) msg += "[x] Customer served\n";
+
+    tutorialText.setAttribute('value', msg);
+    if (tutorialStep === 7) startGameMode();
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <img src="./assets/wahel-todo-01.png" alt="Dynamic Todo List VR" class="single-media">
+                    </div>
+                </article>
+
+                <article class="portfolio-item row-layout reversed">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">2. Dynamic Customer Queues</h3>
+                        <p class="item-description">
+                            Development of a customer management system. The queue and the customer's position at the
+                            counter dynamically adapt to the player's real-world position. I also added a patience limit
+                            bar and a specific leaving animation if the customer gets angry from waiting too long.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/main.js
+customer._patienceTimer = setInterval(function () {
+    customer._patience -= decrementPerTick;
+    
+    // Update visual patience bar width based on %
+    var pct = customer._patience / 100;
+    customer._patienceBar.setAttribute('width', pct * 1.0);
+
+    // Out of patience!
+    if (customer._patience <= 0) {
+        customerLeaveAngry(customer);
+    }
+}, 200);</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <div class="carousel-container">
+                            <div class="carousel-viewport">
+                                <div id="ai-1" class="carousel-slide active">
+                                    <img src="./assets/orderspanel.jpg" alt="Order management and patience">
+                                    <span class="carousel-caption">Order Interface & Patience Bar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item row-layout">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">3. In-Game Economy & Decoration Shop</h3>
+                        <p class="item-description">
+                            Implementation of the cash register and monetization system. Once an order (coffee or water)
+                            is handed to the customer, they pay, and the money must be put into the register. This
+                            earned cash can then be spent in an in-game shop to buy decorations for your virtual coffee
+                            shop.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/main.js
+if (price > 0 && totalEarnings < price) {
+    showARNotification('Not enough money! Need $' + price);
+} else {
+    if (price > 0) totalEarnings -= price; // Deduct money
+    
+    // Update wallet display in VR store
+    let wallet = document.getElementById('shop-wallet');
+    if (wallet) wallet.setAttribute('value', '$' + totalEarnings);
+
+    spawnObject(type, color, model, scale); // Spawn item
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <img src="./assets/wahel-boutique.png" alt="Game Economy Overview" class="single-media">
+                    </div>
+                </article>
+
+                <article class="portfolio-item row-layout reversed">
+                    <div class="portfolio-item__text col-6">
+                        <h3 class="item-title">4. Sound Design & Immersion</h3>
+                        <p class="item-description">
+                            Full integration of spatial sound design to strengthen user feedback. This includes
+                            background ambient noise, interaction sounds for objects (cups, machines, cash register),
+                            and audio reactions from the customers.
+                        </p>
+                        <pre class="feature-card__code"><code>// src/main.js
+function checkDollarCollection() {
+    // ...
+    if (dollarDistanceToRegister < 0.4) {
+        dollar._collected = true;
+        
+        // Contextual Audio Feedback
+        try {
+            var moneySfx = new Audio('sounds/money.mp3');
+            moneySfx.volume = 0.8;
+            moneySfx.play();
+        } catch (e) { }
+
+        totalEarnings += coffeesOrdered * 5;
+    }
+}</code></pre>
+                    </div>
+                    <div class="portfolio-item__media col-6">
+                        <div class="audio-placeholder single-media"
+                            style="background:#1e0f0a; display:flex; align-items:center; justify-content:center; height:315px; border-radius:12px; border: 3px solid var(--color-brand-primary);">
+                            <h4
+                                style="color:var(--color-wahel-highlight); font-family:var(--ff-display); font-size:2rem;">
+                                🔊 Audio System Implemented</h4>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="demo" class="demo">
+            <div class="divider divider--checkerboard" aria-hidden="true"></div>
+            <div class="demo__container container text-center">
+                <h2 class="demo__title">Demonstration Video</h2>
+                <iframe class="video__frame" width="560" height="315"
+                    src="https://www.youtube.com/embed/ysdoX7ijN5w?si=5sh9zYnPlj-pvxwn" title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                <p class="demo__caption">Overview of the queue mechanics, the economy system, and the To-Do list.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__brand">
+                <div class="footer__logo">WG</div>
+                <p>Wahel Gader — SAE 4.DWeb Portfolio</p>
+            </div>
+            <div class="footer__nav">
+                <a href="index.html" class="footer__link">Project Home</a>
+                <a href="#logic" class="footer__link">Technical Details</a>
+            </div>
+        </div>
+        <div class="footer__bottom text-center">
+            <p>© 2026 — Wahel Gader</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
